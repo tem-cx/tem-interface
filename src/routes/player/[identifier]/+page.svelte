@@ -104,7 +104,7 @@
                }
             }) as item}
                 <div class="item" on:click={() => window.open(`/item/${item._id}`, "_blank")} style="border-left-color:{getRarityColour(getUpgradedRarity(item))};">
-                    <Lazy>
+                    <Lazy height={96} offset={430}>
                         <img src="{getItemUrl(item)}" alt="{item.name}">
                     </Lazy>
                     <div class="item__info">
