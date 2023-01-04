@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: "Montserrat", serif;
+    background-color: #232931;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+* {
+    margin: 0;
+    font-family: "Montserrat", serif;
+}
+
+img {
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
+}
+
+input[type="text"], input[type="password"] {
+    border: 0;
+    border-bottom: 1px solid #4ecca3;
+    background-color: #232931;
+    color: #eee;
+    font-size: 1.2em;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 70%;
+}
+
+input:focus {
+    outline: none;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 48
+}
+
+.card {
+    width: 100%;
+    height: fit-content;
+    box-sizing: border-box;
+    background-color: #222830;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 5px;
+    padding: 1rem;
+    border-left: 4px solid #4ecca3;
+}
+
+.value {
+    color: #4ecca3;
+}
