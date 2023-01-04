@@ -22,7 +22,6 @@
                 errorMessage = "Invalid UUID";
             });
     } else {
-        console.log("dfs")
         axios.get(`https://api.ashcon.app/mojang/v2/user/${data.username}`)
             .then(response => {
                 data.username = response.data.username;
@@ -35,7 +34,6 @@
     $: if (data.uuid) {
         axios.get(`https://api.tem.cx/items/player/${data.uuid}`)
             .then(response => {
-                console.log(response.data);
                 items = response.data.items.map(item => {
                     item.location = (item.location ?? "unknown").replace(/-\d+/, "");
                     return item;

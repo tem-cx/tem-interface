@@ -10,9 +10,6 @@
             uuid: "",
         },
         onSubmit: (values) => {
-            console.log("dsjfjdsk")
-            console.log(values)
-            console.log(`/${$page.url.pathname.split('/')[1]}/${values.uuid}`)
             location.href = `/${$page.url.pathname.split('/')[1]}/${values.uuid}`;
         },
     })
