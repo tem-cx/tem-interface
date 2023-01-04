@@ -308,6 +308,7 @@
     @media (max-width: 768px) {
         .items {
             margin: 1.3rem 1rem;
+            gap: 0;
         }
 
         .player {
@@ -318,7 +319,13 @@
         .item {
             flex: 1 1 100%;
             width: 100%;
+            font-size: 85%;
             margin-bottom: 1rem;
+            height: 9rem;
+        }
+
+        .uuid {
+            font-size: 85%;
         }
     }
 
