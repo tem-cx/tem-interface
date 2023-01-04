@@ -312,8 +312,13 @@
         }
 
         .player {
-            margin-left: 0;
+            margin: 0;
             align-self: center;
+            transform: scale(85%);
+        }
+
+        .container {
+            margin-top: 0;
         }
 
         .item {
@@ -322,6 +327,10 @@
             font-size: 85%;
             margin-bottom: 1rem;
             height: 9rem;
+        }
+
+        .last__scanned {
+            font-size: 0.65rem !important;
         }
 
         .uuid {
