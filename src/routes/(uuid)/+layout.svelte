@@ -2,7 +2,6 @@
     import { createForm } from "svelte-forms-lib";
     import { page } from "$app/stores";
     import SubmitButton from "../../components/SubmitButton.svelte";
-    import {onMount} from "svelte";
     let uuida = "";
 
     const { form, handleChange, handleSubmit } = createForm({

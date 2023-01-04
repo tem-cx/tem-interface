@@ -1,5 +1,7 @@
 <script lang="ts">
-    import {formatLocation, getItemUrl, getRarityColour, getUpgradedRarity} from "$lib";
+    import {formatId, formatLocation, getItemUrl, getRarityColour, getUpgradedRarity} from "$lib";
+    import TimeAgo from 'javascript-time-ago'
+    import en from 'javascript-time-ago/locale/en'
 
     export let json;
     export let enchantments: string[] = [];
@@ -7,9 +9,9 @@
     const normalEnchantments = enchantments.filter((enchantment) => !enchantment.includes("Ultimate"));
     const hotPotatoCount = json.extraAttributes.hot_potato_count;
     const upgradedRarity = getUpgradedRarity(json);
+    const attributes = json?.extraAttributes?.attributes;
+    let attributesString = "";
     const upgradedRarityColour = getRarityColour(upgradedRarity);
-    import TimeAgo from 'javascript-time-ago'
-    import en from 'javascript-time-ago/locale/en'
     TimeAgo.addLocale(en)
 
     const timeAgo = new TimeAgo('en-US')
@@ -25,12 +27,17 @@
     </div>
     {#if enchantments && enchantments.length > 0}
         <div class="item__enchants card">
-            {#if ultimateEnchantments && ultimateEnchantments > 0}
+            {#if ultimateEnchantments && ultimateEnchantments.length > 0}
                 <p class="ultimate">
                     {ultimateEnchantments.join(", ")}
                 </p>
             {/if}
             <p>{normalEnchantments.join(", ")}</p>
+        </div>
+    {/if}
+    {#if attributes}
+        <div class="item__attributes card">
+            <p>{Object.entries(attributes).map(([k, v]) => formatId(k) + " " + v).join(", ")}</p>
         </div>
     {/if}
         <div class="item__info card">
@@ -83,6 +90,16 @@
         line-height: 1.5rem;
         box-sizing: border-box;
         padding: 1.3rem;
+    }
+
+    .item__attributes {
+        width: 100%;
+        gap: 10px;
+        color: #08e1e8;
+        line-height: 1.5rem;
+        box-sizing: border-box;
+        padding: 1.3rem;
+        font-weight: 500;
     }
 
     .item__info {

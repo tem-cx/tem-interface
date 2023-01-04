@@ -55,6 +55,13 @@ export const getUpgradedRarity = (item: any): string => {
     return rarities[rarityIndex + upgrades];
 }
 
+export const formatId = (id: string): string => {
+    return id.toLowerCase()
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .replace(/-/, " - ");
+}
+
 export const formatLocation = (location: string): string => {
     return location.toLowerCase()
         .replace(/_/g, " ")
