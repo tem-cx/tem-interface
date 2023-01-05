@@ -35,15 +35,6 @@
 
 
 <style>
-    :global(body) {
-        background: rgb(35,41,49);
-        background: linear-gradient(147deg, rgba(35,41,49,1) 0%, rgb(32, 32, 52) 35%, rgb(27, 26, 52) 100%);
-    }
-
-    :global(.header) {
-        background-color: transparent !important;
-    }
-
     .container {
         height: 100vh;
         width: 100vw;
@@ -107,10 +98,5 @@
         h2 {
             font-size: 5vw;
         }
-    }
-
-    :global(.svelte-select) {
-        border: 1px solid #4ecca3 !important;
-        background: transparent !important;
     }
 </style>

@@ -217,7 +217,7 @@
         justify-content: center;
         width: 24rem;
         height: 11rem;
-        background-color: #222830;
+        /*background-color: #222830;*/
         border-left: 4px solid #4ecca3;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
         border-radius: 5px;

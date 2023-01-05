@@ -2,9 +2,18 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: "Montserrat", serif;
-    background-color: #232931;
+    background: rgb(35,41,49);
+    background: linear-gradient(147deg, rgba(35,41,49,1) 0%, rgb(32, 32, 52) 35%, rgb(27, 26, 52) 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100%;
     width: 100%;
+}
+
+.svelte-select {
+    border: 1px solid #4ecca3 !important;
+    background: transparent !important;
 }
 
 body {
@@ -25,7 +34,7 @@ img {
 input[type="text"], input[type="password"] {
     border: 0;
     border-bottom: 1px solid #4ecca3;
-    background-color: #232931;
+    background-color: transparent;
     color: #eee;
     font-size: 1.2em;
     padding: 0.5em;
@@ -49,7 +58,6 @@ input:focus {
     width: 100%;
     height: fit-content;
     box-sizing: border-box;
-    background-color: #222830;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
     color: white;
     border-radius: 5px;
