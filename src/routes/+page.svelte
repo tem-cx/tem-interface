@@ -9,7 +9,7 @@
 <div class="container">
     <div class="center">
         <h1>
-            This is iTEM.
+            This is <span class="i">i</span>TEM.
         </h1>
         <Typewriter
                 interval={[40, 50, 60]}
