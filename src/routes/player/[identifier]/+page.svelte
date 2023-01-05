@@ -165,7 +165,7 @@
         max-width: 80vw;
         padding: 1rem 2rem;
         height: fit-content;
-        background-color: #1e2e31;
+        background-color: #143037;
         border: 2px solid #4ecca3;
         border-radius: 2px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
@@ -267,7 +267,6 @@
         flex-direction: column;
         width: 16.1rem;
         --background: transparent;
-        background: #1e2e31;
         align-self: flex-start;
         --border-focused: none;
         --border-hover: none;
