@@ -3,9 +3,13 @@
     import TimeAgo from 'javascript-time-ago'
     import en from 'javascript-time-ago/locale/en'
 
-    export let json;
+    export let json: any;
     export let enchantments: string[] = [];
-    const ultimateEnchantments = enchantments.filter((enchantment) => enchantment.includes("Ultimate")).map((enchantment) => enchantment.replace("Ultimate ", ""));
+    const ultimateEnchantments = enchantments.filter((enchantment) => enchantment.includes("Ultimate")).map((enchantment) => {
+        if (!enchantment.includes("Ultimate Wise")) enchantment = enchantment.replace("Ultimate ", "")
+        return enchantment;
+    });
+
     const normalEnchantments = enchantments.filter((enchantment) => !enchantment.includes("Ultimate"));
     const hotPotatoCount = json.extraAttributes.hot_potato_count;
     const upgradedRarity = getUpgradedRarity(json);
