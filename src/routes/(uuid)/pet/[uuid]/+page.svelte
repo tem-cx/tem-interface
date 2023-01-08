@@ -4,9 +4,9 @@
     import OwnerCard from "../../../../components/OwnerCard.svelte";
     import PetCard from "../../../../components/PetCard.svelte";
 
-    export let data;
+    export let data: any;
     let error = false;
-    let json;
+    let json: any;
     onMount(() => {
         axios.get(`https://api.tem.cx/pets/${data.uuid}`).then((res) => {
             json = res.data.pet;
@@ -23,11 +23,11 @@
         <PetCard json={json} />
         <div class="owners">
             <h2>Current Owner</h2>
-            <OwnerCard uuid={json?.currentOwner?.playerUuid} />
+            <OwnerCard uuid={json?.currentOwner?.playerUuid} end={-1} start={json?.previousOwners[json?.previousOwners.length - 1]?.end} />
             <h2>Previous Owners</h2>
             <div class="owners__list">
                 {#each json?.previousOwners ?? [] as owner}
-                    <OwnerCard uuid={owner.owner.playerUuid} />
+                    <OwnerCard uuid={owner.owner.playerUuid} end={owner.end} start={owner.start} />
                 {/each}
             </div>
         </div>
@@ -39,7 +39,6 @@
 </div>
 
 <style>
-
     .container {
         box-sizing: border-box;
         margin-top: 1rem;
@@ -87,7 +86,6 @@
         gap: 10px;
         height: 0;
     }
-
 
     h2 {
         margin-bottom: 1rem;

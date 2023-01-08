@@ -4,9 +4,9 @@
     import OwnerCard from "../../../../components/OwnerCard.svelte";
     import ItemCard from "../../../../components/ItemCard.svelte";
 
-    export let data;
+    export let data: any;
     let error = false;
-    let json;
+    let json: any;
     let enchantments: string[] = [];
     onMount(() => {
         axios.get(`https://api.tem.cx/items/${data.uuid}`).then((res) => {
@@ -33,11 +33,11 @@
         <ItemCard json={json} enchantments={enchantments} />
         <div class="owners">
             <h2>Current Owner</h2>
-            <OwnerCard uuid={json?.currentOwner?.playerUuid} />
+            <OwnerCard uuid={json?.currentOwner?.playerUuid} end={-1} start={json?.previousOwners[json?.previousOwners.length - 1]?.end} />
             <h2>Previous Owners</h2>
             <div class="owners__list">
                 {#each json?.previousOwners ?? [] as owner}
-                    <OwnerCard uuid={owner.owner.playerUuid} />
+                    <OwnerCard uuid={owner.owner.playerUuid} end={owner.end} start={owner.start} />
                 {/each}
             </div>
         </div>

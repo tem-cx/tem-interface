@@ -7,11 +7,11 @@
     import Lazy from 'svelte-lazy';
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo('en-US')
-    export let data;
-    let items;
-    let errorMessage: string = null;
+    export let data: any;
+    let items: [any];
+    let errorMessage: string = "";
     let nameFilter = "";
-    let locationFilter;
+    let locationFilter: any;
     if (data.uuid) {
        axios.get(`https://api.ashcon.app/mojang/v2/user/${data.uuid}`)
             .then(response => {
@@ -34,7 +34,7 @@
     $: if (data.uuid) {
         axios.get(`https://api.tem.cx/items/player/${data.uuid}`)
             .then(response => {
-                items = response.data.items.map(item => {
+                items = response.data.items.map((item: any) => {
                     item.location = (item.location ?? "unknown").replace(/-\d+/, "");
                     return item;
                 });
@@ -59,7 +59,7 @@
 
     const locationOptions = Object.keys(locationMappings).map(key => {
         return {
-            label: locationMappings[key],
+            label: (locationMappings as any)[key],
             value: key
         }
     });

@@ -1,3 +1,8 @@
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+TimeAgo.addDefaultLocale(en)
+export const timeAgo = new TimeAgo('en-US')
+
 export const getItemUrl = (item: any): string => {
     if (item.colour) {
         const armourType = item.itemId.split("_")[item.itemId.split("_").length - 1];
