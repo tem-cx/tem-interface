@@ -26,6 +26,7 @@
                 on:clear={() => goto("/")}
                 items={searchMethods}
                 placeholder="Search for..."
+                searchable={false}
                 bind:value={searchMethod}
         />
     </div>

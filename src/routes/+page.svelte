@@ -1,6 +1,5 @@
 <script>
     import Typewriter from 'svelte-typewriter';
-    let borderColour = "transparent";
     import discord from "$lib/discord-mark-white.png";
     import github from "$lib/github-mark-white.png";
 
@@ -12,11 +11,11 @@
             This is <span class="i">i</span>TEM.
         </h1>
         <Typewriter
-                interval={[40, 50, 60]}
+                interval={[30, 40, 50]}
                 keepCursorOnFinish={true}
         >
             <h2>
-                A comprehensive collection of Skyblock items.
+                An open source, community-led effort to track every single item in Hypixel Skyblock.
             </h2>
         </Typewriter>
     </div>
@@ -45,9 +44,10 @@
         font-weight: 100;
         margin-left: 8vw;
         color: white;
-        position: absolute;
+        position: relative;
         top: 50%;
         transform: translateY(-50%);
+        margin-right: 8vw;
     }
 
     h1 {
