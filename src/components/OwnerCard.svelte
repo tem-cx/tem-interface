@@ -28,7 +28,9 @@
 </script>
 
 <div class="owner">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <img src="https://crafatar.com/avatars/{uuid}?size=64&overlay" alt="avatar" class="avatar" on:click={openPlayerPage}>
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div class="owner__info" on:click={openPlayerPage}>
         {#await getName(uuid)}
             <p class="name">loading...</p>
@@ -37,7 +39,7 @@
         {/await}
     </div>
     <div class="buttons">
-        <SvelteTooltip tip={`Acquired ${timeAgo.format(start)}`} left>
+        <SvelteTooltip tip={(start != -1) ? `Acquired ${timeAgo.format(start)}` : "First Owner"} left>
             <span class="material-symbols-outlined">file_download</span>
         </SvelteTooltip>
         <SvelteTooltip tip={(end != -1) ? `Passed on ${timeAgo.format(end)}` : "Current Owner"} left>

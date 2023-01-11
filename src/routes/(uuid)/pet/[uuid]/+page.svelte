@@ -23,7 +23,7 @@
         <PetCard json={json} />
         <div class="owners">
             <h2>Current Owner</h2>
-            <OwnerCard uuid={json?.currentOwner?.playerUuid} end={-1} start={json?.previousOwners[json?.previousOwners.length - 1]?.end} />
+            <OwnerCard uuid={json?.currentOwner?.playerUuid} end={-1} start={json?.previousOwners.length !== 0 ? json?.previousOwners[json?.previousOwners.length - 1]?.end : -1} />
             <h2>Previous Owners</h2>
             <div class="owners__list">
                 {#each json?.previousOwners ?? [] as owner}
