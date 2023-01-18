@@ -2,6 +2,7 @@
     import Typewriter from 'svelte-typewriter';
     import discord from "$lib/discord-mark-white.png";
     import github from "$lib/github-mark-white.png";
+    import Settings from "../components/Settings.svelte";
 
 </script>
 

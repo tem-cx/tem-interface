@@ -11,6 +11,19 @@ export const getItemUrl = (item: any): string => {
     return "https://sky.shiiyu.moe/item/" + item.itemId;
 }
 
+export const locationMappings = {
+    "wardrobe_contents": "Wardrobe",
+    "inv_armor": "Inventory Armour",
+    "talisman_bag": "Talisman Bag",
+    "inv_contents": "Inventory",
+    "ender_chest_contents": "Ender Chest",
+    "fishing_bag": "Fishing Bag",
+    "Unknown": "Unknown",
+    "personal_vault_contents": "Personal Vault",
+    "backpack": "Backpacks",
+    "equippment_contents": "Equipment"
+}
+
 export const rarities = [
     "COMMON",
     "UNCOMMON",
@@ -77,4 +90,22 @@ export const formatLocation = (location: string): string => {
         .replace(/ Contents/g, "")
         .replace(/Contents /g, "")
         .replace("Armor", "Armour");
+}
+
+export function clickOutside(node) {
+    const handleClick = event => {
+        if (node && !node.contains(event.target) && !event.defaultPrevented) {
+            node.dispatchEvent(
+                new CustomEvent('click_outside', node)
+            )
+        }
+    }
+
+    document.addEventListener('click', handleClick, true);
+
+    return {
+        destroy() {
+            document.removeEventListener('click', handleClick, true);
+        }
+    }
 }

@@ -5,6 +5,7 @@ body, html {
     background-size: cover;
     background: linear-gradient(145deg, rgb(32, 32, 52) 0%, rgb(31, 32, 52) 35%, rgb(32, 32, 70) 100%) no-repeat fixed;
     height: 100%;
+    color: #b5b9d6;
     width: 100%;
 }
 

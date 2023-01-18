@@ -3,6 +3,8 @@
     import { page } from "$app/stores";
     import Select from "svelte-select";
     import logo from "$lib/tem.png";
+    import Settings from "./Settings.svelte";
+    import {showSettings} from "$lib/storable.ts";
     const searchMethods = [
         {value: "item", label: "Lookup Item by UUID"},
         {value: "pet", label: "Lookup Pet by UUID"},
@@ -30,10 +32,14 @@
                 bind:value={searchMethod}
         />
     </div>
+    <span class="material-symbols-outlined settings" on:click={() => {
+        $showSettings = true;
+    }}>settings</span>
 </div>
 
 <style lang="css">
     .header {
+        z-index: 10;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -51,7 +57,7 @@
 
     .search {
         margin-left: auto;
-        margin-right: 2rem;
+        margin-right: 1rem;
         --width: 300px;
         --border-radius: 10px;
         --border: 1px solid #373b42;
@@ -67,6 +73,16 @@
         --item-is-active-bg: #202121;
         --icons-color: #fff;
         --selected-item-color: #fff;
+    }
+
+    .settings {
+        margin-right: 1rem;
+        cursor: pointer;
+        transition: 300ms;
+    }
+
+    .settings:hover {
+        transform: rotate(90deg);
     }
 
     :global(.search > :not(span)) {
@@ -88,6 +104,13 @@
             height: 5rem;
             margin-left: 0;
             margin-top: -1rem;
+        }
+
+        .settings {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 1rem;
         }
     }
 </style>
