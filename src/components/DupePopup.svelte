@@ -1,9 +1,12 @@
+<svelte:head>
+    <script src="../../nbt.js"></script>
+</svelte:head>
+
 <script>
     import { clickOutside } from "$lib";
     import { fly } from 'svelte/transition'
     import { hypixelApiKey, showDupePopup } from "$lib/storable";
     import pako from "pako";
-    import nbt from "nbt";
     import {onMount} from "svelte";
     import {locationMappings} from "$lib";
 
@@ -219,7 +222,7 @@
     function checkIsPresent(inventoryName, inventoryBytes, itemUuid) {
         const decompressedData = pako.inflate(Uint8Array.from(atob(inventoryBytes), c => c.charCodeAt(0)))
         let found = false;
-        nbt.parse(decompressedData, (error, data) => {
+        window.nbt.parse(decompressedData, (error, data) => {
             try {
                 let itemsList = data["value"]["i"]["value"]["value"]
                 for (const itemNbt of itemsList) {
@@ -288,7 +291,7 @@
         let auctionUuid;
         pageData["auctions"].forEach((auction) => {
             const decompressedData = pako.inflate(Uint8Array.from(atob(auction["item_bytes"]), c => c.charCodeAt(0)))
-            nbt.parse(decompressedData, (error, data) => {
+            window.nbt.parse(decompressedData, (error, data) => {
                 try {
                     auctionUuid = data["value"]["i"]["value"]["value"][0]["tag"]["value"]["ExtraAttributes"]["value"]["uuid"]["value"]
                     if (auctionUuid === itemUuid) {

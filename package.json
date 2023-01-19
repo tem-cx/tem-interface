@@ -23,7 +23,6 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"nbt": "^0.8.1",
 		"pako": "^2.1.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
@@ -40,6 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"axios": "^1.1.0",
+		"browserify-zlib": "^0.2.0",
 		"javascript-time-ago": "^2.5.9",
 		"relative-time-format": "^1.1.6",
 		"svelte-forms-lib": "^2.0.1",

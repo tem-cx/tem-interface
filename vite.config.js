@@ -6,6 +6,11 @@ const config = {
 	// enable cors
 	server: {
 		cors: true
+	},
+	resolve: {
+		alias: {
+			zlib: 'browserify-zlib'
+		}
 	}
 };
 
