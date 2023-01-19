@@ -1,5 +1,5 @@
 <svelte:head>
-    <script src="../../nbt.js"></script>
+    <script src="/nbt.js"></script>
 </svelte:head>
 <script lang="ts">
     import { hypixelApiKey, showDupePopup } from "$lib/storable.js";
