@@ -1,7 +1,3 @@
-<svelte:head>
-    <script src="../../nbt.js"></script>
-</svelte:head>
-
 <script>
     import { clickOutside } from "$lib";
     import { fly } from 'svelte/transition'

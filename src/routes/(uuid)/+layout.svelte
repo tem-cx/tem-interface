@@ -1,3 +1,6 @@
+<svelte:head>
+    <script src="../../nbt.js"></script>
+</svelte:head>
 <script lang="ts">
     import { createForm } from "svelte-forms-lib";
     import { page } from "$app/stores";
