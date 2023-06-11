@@ -9,14 +9,17 @@
     const rarity = json?.rarity;
     let metaDescription = `🗡️ ID: ${json.name}
     🎒 Location: ${formatLocation(json.location)}\n`;
-    if (json.extraAttributes?.originTag && json.extraAttributes?.originTag != "Unknown") {
-        metaDescription += `\n🔎 Origin ${json.extraAttributes?.originTag}`
-    } 
-    metaDescription += `\n\n🍭 Candy: ${json.candy}/10`
+    
+    metaDescription += `\n🍭 Candy: ${json.candy}/10`
     if (json.heldItem) {
         metaDescription += `\n💎 Held Item: ${json.heldItem}`
     }
-    metaDescription += `\n\n✅ Last Checked ${timeAgo.format(json.lastChecked)}`;
+
+    metaDescription += '\n';
+    if (json.extraAttributes?.originTag && json.extraAttributes?.originTag != "Unknown") {
+        metaDescription += `\n🔎 Origin ${json.extraAttributes?.originTag}`
+    } 
+    metaDescription += `\n✅ Last Checked ${timeAgo.format(json.lastChecked)}`;
 </script>
 
 <svelte:head>

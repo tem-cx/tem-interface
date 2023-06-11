@@ -14,7 +14,7 @@
     <title>{pet?.name}</title>
     <meta property="og:title" content={`${data.currentOwnerName}'s ${pet.friendlyName}`} />
     <meta name="og:site_name" content="iTEM • All of Hypixel SkyBlock, Here." />
-    <meta property="og:image" content={data.itemImageUrl} />
+    <meta property="og:image" content={data.petImageUrl} />
     <meta property="og:image:width" content="1500" />
     <meta property="og:image:height" content="1500" />
 </svelte:head>
