@@ -44,7 +44,7 @@ export const load = (async ({ fetch, params }) => {
         params["currentOwnerName"] = serialized.username;
     }
 
-    params["itemImageUrl"] = `https://api.tem.cx/items/icon/${params["item"].itemId}`;
+    params["itemImageUrl"] = `https://api.tem.cx/icons/item/${params["item"].itemId}`;
 
 
     return params;
