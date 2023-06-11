@@ -44,22 +44,7 @@ export const load = (async ({ fetch, params }) => {
         params["currentOwnerName"] = serialized.username;
     }
 
-    // we only care about this for og:image
-    if (typeof window === "undefined") {
-        const itemImageUrl = getItemUrl(params["item"]);
-        response = await fetch(itemImageUrl);
-        
-        const image = await response.arrayBuffer();
-        const base64 = Buffer.from(image).toString("base64");
-
-        // very hacky, but if the image is already scaled higher than 16x16, then just use the original url
-        if (base64.length > 1000) {
-            params["itemImageUrl"] = itemImageUrl;
-        } else {
-            params["itemImageUrl"] = "/api/upscale?image=" + encodeURIComponent(base64);
-        }
-
-    }
+    params["itemImageUrl"] = `https://api.tem.cx/items/icon/${params["item"].itemId}`;
 
 
     return params;
