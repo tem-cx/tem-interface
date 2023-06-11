@@ -1,5 +1,4 @@
 <script lang="ts">
-    import axios from "axios";
     import TimeAgo from 'javascript-time-ago'
     import en from 'javascript-time-ago/locale/en'
     import Select from "svelte-select";
@@ -8,41 +7,9 @@
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo('en-US')
     export let data: any;
-    let items: [any];
-    let errorMessage: string = "";
+    let items: [any] = data.items;
     let nameFilter = "";
     let locationFilter: any;
-    if (data.uuid) {
-       axios.get(`https://api.ashcon.app/mojang/v2/user/${data.uuid}`)
-            .then(response => {
-                data.username = response.data.username;
-                data.uuid = response.data.uuid.replace(/-/g, "");
-            }).catch(error => {
-                console.error(error);
-                errorMessage = "Invalid UUID";
-            });
-    } else {
-        axios.get(`https://api.ashcon.app/mojang/v2/user/${data.username}`)
-            .then(response => {
-                data.username = response.data.username;
-                data.uuid = response.data.uuid.replace(/-/g, "");
-            }).catch(error => {
-                console.error(error);
-                errorMessage = "Invalid Username";
-            });
-    }
-    $: if (data.uuid) {
-        axios.get(`https://api.tem.cx/items/player/${data.uuid}`)
-            .then(response => {
-                items = response.data.items.map((item: any) => {
-                    item.location = (item.location ?? "unknown").replace(/-\d+/, "");
-                    return item;
-                });
-            }).catch(error => {
-                console.error(error);
-                errorMessage = "Invalid UUID";
-            });
-    }
 
     const locationMappings = {
         "wardrobe_contents": "Wardrobe",
@@ -76,52 +43,59 @@
             .replace("Armor", "Armour");
         return newLocation;
     }
+
+    const mostRecentScan = items.sort((a, b) => b.lastChecked - a.lastChecked)[0];
+    const lastScanned = timeAgo.format(mostRecentScan.lastChecked);
 </script>
 
+<svelte:head>
+        <title>{data.username}</title>
+        <meta name="description" content={`View ${data.username}'s SkyBlock items.`}>
+        <meta property="og:title" content={`iTEM • ${data.username}'s Profile`} />
+        <meta property="og:description" content={`View ${data.username}'s SkyBlock items.\n\n⚔️ Items Owned: ${items.length}\n⌛ Last Scanned: ${lastScanned}`} />
+        <meta property="og:image" content={`https://crafatar.com/renders/body/${data.uuid}?overlay`} />
+        <meta property="og:image:width" content="120" />
+        <meta property="og:image:height" content="270" />
+</svelte:head>
+
 <div class="container">
-    {#if items}
-        <div class="player">
-            <img src="https://crafatar.com/renders/body/{data.uuid}?overlay" alt="Player Skin">
-            <div class="player-info">
-                <h1>{data.username}</h1>
-                <p>Items Owned: <span class="value">{items.length}</span></p>
-                <p>UUID: <span class="value">{data.uuid}</span></p>
-            </div>
+    <div class="player">
+        <img src="https://crafatar.com/renders/body/{data.uuid}?overlay" alt="Player Skin">
+        <div class="player-info">
+            <h1>{data.username}</h1>
+            <p>Items Owned: <span class="value">{items.length}</span></p>
+            <p>UUID: <span class="value">{data.uuid}</span></p>
         </div>
-        <input type="text" name="uuid" placeholder="Enter Item Name" class="input__name" bind:value={nameFilter}>
-        <div class="search">
-            {#if !locationFilter}
-                <span class="material-symbols-outlined expand">expand_more</span>
-            {/if}
-            <Select bind:value={locationFilter} items={locationOptions} placeholder="Select Location" />
-        </div>
-        <div class="items">
-            {#each items.filter(item => item.friendlyName.toLowerCase().includes(nameFilter.toLowerCase())).sort((a, b) => b.previousOwners.length - a.previousOwners.length).filter(item => {
-               if (locationFilter) {
-                   return item.location === locationFilter.value
-               } else {
-                   return true
-               }
-            }) as item}
-                <div class="item" on:click={() => window.open(`/item/${item._id}`, "_blank")} style="border-left-color:{getRarityColour(getUpgradedRarity(item))};">
-                    <Lazy height={96} offset={430}>
-                        <img src="{getItemUrl(item)}" alt="">
-                    </Lazy>
-                    <div class="item__info">
-                        <h3>{item.friendlyName}</h3>
-                        <p>Previous Owners: <span class="value">{item.previousOwners.length}</span>.</p>
-                        <p>Location: <span class="value">{formatLocation(item.location ?? "Unknown")}</span>.</p>
-                        <p class="uuid">{item._id}</p>
-                    </div>
-                    <p class="last__scanned">{timeAgo.format(new Date(item.lastChecked ?? 0))}</p>
+    </div>
+    <input type="text" name="uuid" placeholder="Enter Item Name" class="input__name" bind:value={nameFilter}>
+    <div class="search">
+        {#if !locationFilter}
+            <span class="material-symbols-outlined expand">expand_more</span>
+        {/if}
+        <Select bind:value={locationFilter} items={locationOptions} placeholder="Select Location" />
+    </div>
+    <div class="items">
+        {#each items.filter(item => item.friendlyName.toLowerCase().includes(nameFilter.toLowerCase())).sort((a, b) => b.previousOwners.length - a.previousOwners.length).filter(item => {
+           if (locationFilter) {
+               return item.location === locationFilter.value
+           } else {
+               return true
+           }
+        }) as item}
+            <div class="item" on:click={() => window.open(`/item/${item._id}`, "_blank")} style="border-left-color:{getRarityColour(getUpgradedRarity(item))};">
+                <Lazy height={96} offset={430}>
+                    <img src="{getItemUrl(item)}" alt="">
+                </Lazy>
+                <div class="item__info">
+                    <h3>{item.friendlyName}</h3>
+                    <p>Previous Owners: <span class="value">{item.previousOwners.length}</span>.</p>
+                    <p>Location: <span class="value">{formatLocation(item.location ?? "Unknown")}</span>.</p>
+                    <p class="uuid">{item._id}</p>
                 </div>
-            {/each}
+                <p class="last__scanned">{timeAgo.format(new Date(item.lastChecked ?? 0))}</p>
             </div>
-    {:else if !errorMessage}
-        <div class="loading">Loading data...</div>
-    {:else}
-        <div class="error">{errorMessage}</div>
-    {/if}
+        {/each}
+    </div>
 </div>
 
 <style>
@@ -133,20 +107,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }
-
-    .loading {
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: white;
-        margin: auto;
-    }
-
-    .error {
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: red;
-        margin: auto;
     }
 
     .input__name {

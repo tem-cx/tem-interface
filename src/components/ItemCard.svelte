@@ -14,12 +14,40 @@
     const hotPotatoCount = json.extraAttributes.hot_potato_count;
     const upgradedRarity = getUpgradedRarity(json);
     const attributes = json?.extraAttributes?.attributes;
-    let attributesString = "";
     const upgradedRarityColour = getRarityColour(upgradedRarity);
     TimeAgo.addLocale(en)
 
     const timeAgo = new TimeAgo('en-US')
+
+    let metaDescription = `🗡️ ID: ${json.itemId}
+    🎒 Location: ${formatLocation(json.location)}\n`;
+    if (ultimateEnchantments.length > 0) {
+        metaDescription += `\n💎 ${ultimateEnchantments.join(", ")}`
+    }
+    const MAX_ENCHANTMENTS = 5;
+    const metaEnchantments = normalEnchantments.slice(0, MAX_ENCHANTMENTS);
+    const metaRemainingEnchantments = normalEnchantments.slice(MAX_ENCHANTMENTS);
+
+
+    if (metaEnchantments.length > 0) {
+        metaDescription += `\n🔮 ${metaEnchantments.join(", ")}`;
+
+        if (metaRemainingEnchantments.length > 0) {
+            const moreEnchantments = metaRemainingEnchantments.length;
+            metaDescription += ` and ${moreEnchantments} others`;
+        }
+    }
+    if (ultimateEnchantments.length + normalEnchantments.length > 0) metaDescription += '\n';
+    metaDescription += `\n🔎 Origin ${json.extraAttributes?.originTag ?? "Unknown"}
+    ✅ Last Checked ${timeAgo.format(json.created_at)}
+    ⏳ Created ${timeAgo.format(json.created_at)}`
 </script>
+
+<svelte:head>
+    <title>{json?.friendlyName}</title>
+    <meta content={upgradedRarityColour} data-react-helmet="true" name="theme-color" />
+    <meta name="og:description" content={`${metaDescription}`} />
+</svelte:head>
 
 <div class="item">
     <div class="item__top card">

@@ -6,6 +6,10 @@
 
 </script>
 
+<svelte:head>
+    <meta property="og:image" content="https://tem.cx/favicon.png?" />
+</svelte:head>
+
 <div class="container">
     <div class="center">
         <h1>

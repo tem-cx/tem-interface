@@ -3,53 +3,36 @@
     import axios from "axios";
     import OwnerCard from "../../../../components/OwnerCard.svelte";
     import ItemCard from "../../../../components/ItemCard.svelte";
+	import { getItemUrl } from "$lib";
 
     export let data: any;
-    let error = false;
-    let json: any;
-    let enchantments: string[] = [];
-    onMount(() => {
-        axios.get(`https://api.tem.cx/items/${data.uuid}`).then((res) => {
-            json = res.data.item;
-            json.previousOwners = json.previousOwners.reverse();
-            for (const [enchant, level] of Object.entries(json.enchantments)) {
-                let name = enchant;
-                name = name.replace(/_/g, " ");
-                name = name.replace(/\w\S*/g, function (txt: string) {
-                    return txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase();
-                });
-                enchantments.push(`${name} ${level}`);
-                enchantments = enchantments; // force update
-            }
-        }).catch(e => {
-           error = true;
-           console.error(e);
-        });
-    });
+    let {enchantments, item} = data;
 </script>
 
+<svelte:head>
+    <title>{item?.name}</title>
+    <meta property="og:title" content={`${data.currentOwnerName}'s ${item.friendlyName}`} />
+    <meta name="og:site_name" content="iTEM • All of Hypixel SkyBlock, Here." />
+    <meta property="og:image" content={data.itemImageUrl} />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="1500" />
+</svelte:head>
+
 <div class="container">
-    {#if json && enchantments}
-        <ItemCard json={json} enchantments={enchantments} />
+        <ItemCard json={item} enchantments={enchantments} />
         <div class="owners">
             <h2>Current Owner</h2>
-            <OwnerCard uuid={json?.currentOwner?.playerUuid} end={-1} start={json?.previousOwners.length !== 0 ? json?.previousOwners[json?.previousOwners.length - 1]?.end : -1} />
+            <OwnerCard uuid={item?.currentOwner?.playerUuid} end={-1} start={item?.previousOwners.length !== 0 ? item?.previousOwners[item?.previousOwners.length - 1]?.end : -1} />
             <h2>Previous Owners</h2>
             <div class="owners__list">
-                {#each json?.previousOwners ?? [] as owner}
+                {#each item?.previousOwners ?? [] as owner}
                     <OwnerCard uuid={owner.owner.playerUuid} end={owner.end} start={owner.start} />
                 {/each}
             </div>
         </div>
-    {:else if !error}
-        <div class="loading">Loading data...</div>
-    {:else}
-        <div class="error">Couldn't find the item.</div>
-    {/if}
 </div>
 
 <style>
-
     .container {
         box-sizing: border-box;
         margin-top: 1rem;
@@ -58,20 +41,6 @@
         display: flex;
         justify-content: space-evenly;
         flex-direction: row;
-    }
-
-    .loading {
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: white;
-        margin: auto;
-    }
-
-    .error {
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: red;
-        margin: auto;
     }
 
     .owners {
