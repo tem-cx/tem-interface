@@ -43,7 +43,6 @@
 		"browserify-zlib": "^0.2.0",
 		"javascript-time-ago": "^2.5.9",
 		"relative-time-format": "^1.1.6",
-		"sharp": "^0.32.1",
 		"svelte-forms-lib": "^2.0.1",
 		"svelte-lazy": "^1.1.0",
 		"svelte-lazy-image": "^0.5.1",
