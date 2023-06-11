@@ -1,30 +1,33 @@
 <script lang="ts">
-    import axios from "axios";
-
     export let json;
     import TimeAgo from 'javascript-time-ago'
     import en from 'javascript-time-ago/locale/en'
-    import {getRarityColour} from "$lib";
+    import {formatLocation, getRarityColour} from "$lib";
     TimeAgo.addLocale(en);
     const timeAgo = new TimeAgo('en-US')
-    let skin_url: string;
+    export let skinUrl: string;
     const rarity = json?.rarity;
-
-    axios.get("https://raw.githubusercontent.com/SkyCryptWebsite/SkyCrypt/development/src/constants/pets.js").then((res) => {
-        let text = res.data;
-        const pet_name = json?.name;
-        const regex = new RegExp(pet_name + ":\\s*{[^}]*head:\\s*\"([^\"]*)\"");
-        const match = regex.exec(text);
-        if (match) {
-            skin_url = "https://sky.shiiyu.moe" + match[1];
-        }
-    });
+    let metaDescription = `🗡️ ID: ${json.name}
+    🎒 Location: ${formatLocation(json.location)}\n`;
+    if (json.extraAttributes?.originTag && json.extraAttributes?.originTag != "Unknown") {
+        metaDescription += `\n🔎 Origin ${json.extraAttributes?.originTag}`
+    } 
+    metaDescription += `\n\n🍭 Candy: ${json.candy}/10`
+    if (json.heldItem) {
+        metaDescription += `\n💎 Held Item: ${json.heldItem}`
+    }
+    metaDescription += `\n\n✅ Last Checked ${timeAgo.format(json.lastChecked)}`;
 </script>
 
+<svelte:head>
+    <title>{json?.friendlyName}</title>
+    <meta content={getRarityColour(rarity)} data-react-helmet="true" name="theme-color" />
+    <meta name="og:description" content={`${metaDescription}`} />
+</svelte:head>
 
 <div class="pet">
     <div class="pet__top card">
-        <img src={skin_url} alt="pet" class="icon">
+        <img src={skinUrl} alt="pet" class="icon">
         <div class="pet__name">
             <h2 style="color: {getRarityColour(rarity)}">[Lvl {json?.level}] {json?.friendlyName}</h2>
             <p class="rarity" style="color: {getRarityColour(rarity)}">{json?.rarity}</p>

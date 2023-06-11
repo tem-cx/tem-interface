@@ -21,7 +21,8 @@ export const locationMappings = {
     "Unknown": "Unknown",
     "personal_vault_contents": "Personal Vault",
     "backpack": "Backpacks",
-    "equippment_contents": "Equipment"
+    "equippment_contents": "Equipment",
+    "pet_menu": "Pet Menu"
 }
 
 export const rarities = [

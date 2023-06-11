@@ -6,27 +6,28 @@
 
     export let data: any;
     let error = false;
-    let json: any;
-    onMount(() => {
-        axios.get(`https://api.tem.cx/pets/${data.uuid}`).then((res) => {
-            json = res.data.pet;
-            json.previousOwners = json.previousOwners.reverse();
-        }).catch(e => {
-            error = true;
-            console.error(e);
-        });
-    });
+    const { pet } = data;
+
 </script>
 
+<svelte:head>
+    <title>{pet?.name}</title>
+    <meta property="og:title" content={`${data.currentOwnerName}'s ${pet.friendlyName}`} />
+    <meta name="og:site_name" content="iTEM • All of Hypixel SkyBlock, Here." />
+    <meta property="og:image" content={data.itemImageUrl} />
+    <meta property="og:image:width" content="1500" />
+    <meta property="og:image:height" content="1500" />
+</svelte:head>
+
 <div class="container">
-    {#if json}
-        <PetCard json={json} />
+    {#if pet}
+        <PetCard json={pet} skinUrl={data.petImageUrl} />
         <div class="owners">
             <h2>Current Owner</h2>
-            <OwnerCard uuid={json?.currentOwner?.playerUuid} end={-1} start={json?.previousOwners.length !== 0 ? json?.previousOwners[json?.previousOwners.length - 1]?.end : -1} />
+            <OwnerCard uuid={pet?.currentOwner?.playerUuid} end={-1} start={pet?.previousOwners.length !== 0 ? pet?.previousOwners[pet?.previousOwners.length - 1]?.end : -1} />
             <h2>Previous Owners</h2>
             <div class="owners__list">
-                {#each json?.previousOwners ?? [] as owner}
+                {#each pet?.previousOwners ?? [] as owner}
                     <OwnerCard uuid={owner.owner.playerUuid} end={owner.end} start={owner.start} />
                 {/each}
             </div>
