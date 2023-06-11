@@ -39,7 +39,7 @@
     }
     if (ultimateEnchantments.length + normalEnchantments.length > 0) metaDescription += '\n';
     metaDescription += `\n🔎 Origin ${json.extraAttributes?.originTag ?? "Unknown"}
-    ✅ Last Checked ${timeAgo.format(json.created_at)}
+    ✅ Last Checked ${timeAgo.format(json.lastChecked)}
     ⏳ Created ${timeAgo.format(json.created_at)}`
 </script>
 
