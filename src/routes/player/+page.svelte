@@ -2,7 +2,7 @@
 	import { onMount } from "svelte";
 
     const usernames = [
-        "TGWaffles",
+        "RagingEnby",
         "BenC1ark",
         "treade",
         "HellCastleBTW"
