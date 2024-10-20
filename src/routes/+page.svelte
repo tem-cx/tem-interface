@@ -27,7 +27,7 @@
     <div class="footer">
         <div class="discord">
             <img src={discord} alt="Discord" />
-            <a href="https://discord.gg/wshPVHRtNF">Join our Discord</a>
+            <a href="https://discord.gg/bUE3r3Jckc">Join our Discord</a>
         </div>
         <div class="github">
             <img src={github} alt="GitHub" />
